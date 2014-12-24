@@ -15,7 +15,7 @@ SpaceShooter.Prefabs.Music.prototype = {
 
   create: function() {
     SpaceShooter.backgroundMusic = SpaceShooter.Game.add.audio('backgroundMusic');
-    // SpaceShooter.backgroundMusic.onDecoded.add(this.play, this);
+    SpaceShooter.backgroundMusic.onDecoded.add(this.play, this);
   },
 
   play: function() {
