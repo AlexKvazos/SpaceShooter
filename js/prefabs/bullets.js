@@ -117,7 +117,7 @@ SpaceShooter.Prefabs.Bullets.prototype = {
     // if enemy has no more life, kill him and add 10 points
     if (enemy.sprite.health <= 0) {
       enemy.sprite.kill();
-      this.state.score += 10;
+      this.state.score += enemy.sprite.score;
     }
 
   }
