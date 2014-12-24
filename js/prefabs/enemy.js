@@ -22,32 +22,6 @@ SpaceShooter.Prefabs.Enemy.prototype = {
 
     this.createGreenEnemies();
 
-    // create orange enemy sprite
-    // this.state.enemy = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX+100, SpaceShooter.Game.world.centerY, 'enemy1');
-    // SpaceShooter.Game.physics.p2.enable(this.state.enemy);
-    // this.state.enemy.body.setCircle(60);
-    // this.state.enemy.body.kinematic = true;
-    // this.state.enemy.body.collideWorldBounds = false;
-    // this.state.enemy.body.setCollisionGroup(this.state.enemyCollisionGroup);
-    // this.state.enemy.body.collides(this.state.bulletCollisionGroup);
-    // this.state.enemy.health = 10;
-    // this.state.enemy.foregroundId = 1;
-    // this.state.enemy.particleArray = [0,4,5,6];
-    // this.state.enemy.anchor.setTo(0.5, 0.5);
-
-    // create green enemy sprite
-    // this.state.enemy2 = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX-100, SpaceShooter.Game.world.centerY, 'enemy2');
-    // SpaceShooter.Game.physics.p2.enable(this.state.enemy2);
-    // this.state.enemy2.body.setCircle(60);
-    // this.state.enemy2.body.kinematic = true;
-    // this.state.enemy2.body.collideWorldBounds = false;
-    // this.state.enemy2.body.setCollisionGroup(this.state.enemyCollisionGroup);
-    // this.state.enemy2.body.collides(this.state.bulletCollisionGroup);
-    // this.state.enemy2.health = 10;
-    // this.state.enemy2.foregroundId = 0;
-    // this.state.enemy2.particleArray = [0,1,2,3];
-    // this.state.enemy2.anchor.setTo(0.5, 0.5);
-
     // create enemy impact sound
     this.state.enemyImpact = SpaceShooter.Game.add.sound('impact');
     this.state.enemyImpact.allowMultiple = true;
@@ -80,7 +54,7 @@ SpaceShooter.Prefabs.Enemy.prototype = {
 
     // get a dead instance
     var greenEnemy = this.state.greenEnemies.getFirstDead();
-    if (greenEnemy) {greenEnemy.reset(100, 100, 10)};
+    if (greenEnemy) {greenEnemy.reset(SpaceShooter.Game.rnd.integerInRange(100, 460), 100, 10)};
 
   },
 
