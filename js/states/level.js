@@ -12,6 +12,7 @@ SpaceShooter.Level = function() {
   this.instance.physics  = new SpaceShooter.Prefabs.Physics(this);
   this.instance.stage    = new SpaceShooter.Prefabs.Stage(this);
   this.instance.debug    = new SpaceShooter.Prefabs.Debug(this);
+  this.instance.guide    = new SpaceShooter.Prefabs.Guide(this);
 
 };
 
@@ -32,6 +33,7 @@ SpaceShooter.Level.prototype = {
     this.instance.enemy.create();
     this.instance.bullets.create();
     this.instance.score.create();
+    this.instance.guide.create();
   },
 
   update: function() {
