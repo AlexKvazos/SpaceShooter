@@ -9,7 +9,7 @@ SpaceShooter.Prefabs = SpaceShooter.Prefabs || {};
  * @param {String} bodyKey       The key to use for the sprite body
  * @param {String} bodyUrl       The directory where the file is relative to the index
  * @param {String} rotorKey      The key to use for the sprite rotor
- * @param {String} rotorIrl      The directory where the file is relative to the index
+ * @param {String} rotorUrl      The directory where the file is relative to the index
  * @param {EnemyFactory} factory Reference to the enemy factory
  */
 SpaceShooter.Prefabs.Enemy = function(groupId, maxEntities, spawnCoolDown, bodyKey, bodyUrl, rotorKey, rotorUrl, boundariesRadius, factory) {
