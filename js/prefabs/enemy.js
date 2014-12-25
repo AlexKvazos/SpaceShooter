@@ -12,7 +12,7 @@ SpaceShooter.Prefabs = SpaceShooter.Prefabs || {};
  * @param {String} rotorUrl      The directory where the file is relative to the index
  * @param {EnemyFactory} factory Reference to the enemy factory
  */
-SpaceShooter.Prefabs.Enemy = function(groupId, maxEntities, spawnCoolDown, bodyKey, bodyUrl, rotorKey, rotorUrl, boundariesRadius, factory) {
+SpaceShooter.Prefabs.Enemy = function(groupId, maxEntities, spawnCoolDown, speed, maxHealth, bodyKey, bodyUrl, rotorKey, rotorUrl, boundariesRadius, factory) {
 
   this.enemyFactory = factory;
   this.maxEntities = maxEntities;
@@ -23,6 +23,8 @@ SpaceShooter.Prefabs.Enemy = function(groupId, maxEntities, spawnCoolDown, bodyK
   this.rotorKey = rotorKey;
   this.rotorUrl = rotorUrl;
   this.boundariesRadius = boundariesRadius;
+  this.speed = speed;
+  this.maxHealth = maxHealth;
   this.maxLivingEntities = 2;
 
 };
@@ -52,8 +54,8 @@ SpaceShooter.Prefabs.Enemy.prototype = {
       enemy.addChild(rotor);
 
       // enemy properties
-      enemy.maxHealth = 3;
-      enemy.speed = 3;
+      enemy.maxHealth = this.maxHealth;
+      enemy.speed = this.speed;
       enemy.type = this.groupId;
       enemy.attackDamage = 5;
       enemy.score = 5;
