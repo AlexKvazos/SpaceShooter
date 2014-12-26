@@ -20,13 +20,14 @@ SpaceShooter.Prefabs.Player.prototype = {
 
     // create player sprite
     var player = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX, SpaceShooter.Game.world.height-50, 'player');
-    SpaceShooter.Game.physics.p2.enable(player);
+    SpaceShooter.Game.physics.p2.enable(player, true);
     player.body.setRectangle(35, 40, -15, 0);
+    player.body.collideWorldBounds = true;
+    player.body.dynamic = true;
+    player.checkWorldBounds = true;
     player.anchor.setTo(1, 0.5);
-    player.z = 10;
     player.animations.add('shoot');
     isShootingAnimationPlaying = false;
-    player.body.collideWorldBounds = true;
 
     // create player particle emitter
     this.state.playerEmitter = SpaceShooter.Game.add.emitter(0, 0);
@@ -42,10 +43,14 @@ SpaceShooter.Prefabs.Player.prototype = {
     // handle device tilting
     window.addEventListener('devicemotion', function(deviceMotion) {
 
-      if (deviceMotion.rotationRate.gamma < 0) {
-        player.body.moveLeft(deviceMotion.rotationRate.gamma * -1 * 20);
-      } else if (deviceMotion.rotationRate.gamma > 0) {
-        player.body.moveRight(deviceMotion.rotationRate.gamma * 20);
+      // reset body velocity
+      player.body.setZeroVelocity();
+
+      // check to what side the device is being tilted
+      if (deviceMotion.rotationRate.gamma < 0 && player.body.x > 100) {
+        player.body.velocity.x = deviceMotion.rotationRate.gamma * 20;
+      } else if (deviceMotion.rotationRate.gamma > 0 && player.body.x < SpaceShooter.Game.world.width - 100) {
+        player.body.velocity.x = deviceMotion.rotationRate.gamma * 20;
       }
 
     });
