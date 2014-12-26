@@ -19,13 +19,14 @@ SpaceShooter.Prefabs.Player.prototype = {
   create: function() {
 
     // create player sprite
-    this.state.player = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX, SpaceShooter.Game.world.height-50, 'player');
-    SpaceShooter.Game.physics.p2.enable(this.state.player);
-    this.state.player.body.setRectangle(35, 40, -15, 0);
-    this.state.player.anchor.setTo(1, 0.5);
-    this.state.player.z = 10;
-    this.state.player.animations.add('shoot');
-    this.state.isShootingAnimationPlaying = false;
+    var player = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX, SpaceShooter.Game.world.height-50, 'player');
+    SpaceShooter.Game.physics.p2.enable(player);
+    player.body.setRectangle(35, 40, -15, 0);
+    player.anchor.setTo(1, 0.5);
+    player.z = 10;
+    player.animations.add('shoot');
+    isShootingAnimationPlaying = false;
+    player.body.collideWorldBounds = true;
 
     // create player particle emitter
     this.state.playerEmitter = SpaceShooter.Game.add.emitter(0, 0);
@@ -34,7 +35,20 @@ SpaceShooter.Prefabs.Player.prototype = {
     this.state.playerEmitter.gravity = 0;
     this.state.playerEmitter.minParticleSpeed.setTo(250, -100);
     this.state.playerEmitter.maxParticleSpeed.setTo(50, 100);
-    this.state.player.addChild(this.state.playerEmitter);
+    player.addChild(this.state.playerEmitter);
+
+    this.state.player = player;
+
+    // handle device tilting
+    window.addEventListener('devicemotion', function(deviceMotion) {
+
+      if (deviceMotion.rotationRate.gamma < 0) {
+        player.body.moveLeft(deviceMotion.rotationRate.gamma * -1 * 20);
+      } else if (deviceMotion.rotationRate.gamma > 0) {
+        player.body.moveRight(deviceMotion.rotationRate.gamma * 20);
+      }
+
+    });
 
   },
 
