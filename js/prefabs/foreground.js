@@ -45,10 +45,10 @@ SpaceShooter.Prefabs.Foreground.prototype = {
 
   update: function() {
 
-    this.foreground[0].alpha *= 0.98;
-    this.foreground[1].alpha *= 0.98;
-    this.foreground[2].alpha *= 0.98;
-    this.foreground[3].alpha *= 0.98;
+    this.foreground[0].alpha *= 0.99;
+    this.foreground[1].alpha *= 0.99;
+    this.foreground[2].alpha *= 0.99;
+    this.foreground[3].alpha *= 0.99;
 
   },
 
