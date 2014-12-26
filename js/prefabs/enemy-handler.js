@@ -17,6 +17,7 @@ SpaceShooter.Prefabs.EnemyHandler.prototype = {
 
     SpaceShooter.Game.load.spritesheet('enemyParticle', 'assets/enemyParticle.png', 2, 2, 7);
     SpaceShooter.Game.load.audio('impact', 'assets/impact.mp3');
+    SpaceShooter.Game.load.image('empty', 'assets/empty.png');
 
     // preload enemies from the factory
     this.instance.enemyFactory.preload();

@@ -51,7 +51,7 @@ SpaceShooter.Prefabs.Bullets.prototype = {
     if (SpaceShooter.Game.input.activePointer.isDown) {
       this.fire();
     } else {
-        this.state.player.animations.stop(null, true);
+        this.state.player.children[1].animations.stop(null, true);
     }
 
     // update the impact indicator
@@ -84,7 +84,7 @@ SpaceShooter.Prefabs.Bullets.prototype = {
 
       // turn the shooting animation on if it is not yet playing
       if (!this.state.isShootingAnimationPlaying) {
-        this.state.player.animations.play('shoot', 20, true);
+        this.state.player.children[1].animations.play('shoot', 20, true);
       }
 
     }

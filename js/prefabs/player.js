@@ -18,15 +18,16 @@ SpaceShooter.Prefabs.Player.prototype = {
 
   create: function() {
 
-    // create player sprite
-    var player = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX, SpaceShooter.Game.world.height-50, 'player');
-    SpaceShooter.Game.physics.p2.enable(player, true);
-    player.body.setRectangle(35, 40, -15, 0);
+    // create player body
+    var player = SpaceShooter.Game.add.sprite(SpaceShooter.Game.world.centerX, SpaceShooter.Game.world.height-50, 'empty');
+    SpaceShooter.Game.physics.p2.enable(player);
+    player.body.setCircle(30);
     player.body.collideWorldBounds = true;
     player.body.dynamic = true;
-    player.checkWorldBounds = true;
-    player.anchor.setTo(1, 0.5);
-    player.animations.add('shoot');
+    player.body.fixedRotation = true;
+    player.body.updateCollisionMask();
+    player.tiltSpeed = 0;
+    player.anchor.setTo(1, 1);
     isShootingAnimationPlaying = false;
 
     // create player particle emitter
@@ -38,29 +39,32 @@ SpaceShooter.Prefabs.Player.prototype = {
     this.state.playerEmitter.maxParticleSpeed.setTo(50, 100);
     player.addChild(this.state.playerEmitter);
 
+    // add sprite to the player body
+    var sprite = SpaceShooter.Game.add.sprite(0, 0, 'player');
+    sprite.anchor.setTo(0.5, 0.5);
+    sprite.animations.add('shoot');
+    player.addChild(sprite);
+
     this.state.player = player;
 
     // handle device tilting
     window.addEventListener('devicemotion', function(deviceMotion) {
-
-      // reset body velocity
-      player.body.setZeroVelocity();
-
-      // check to what side the device is being tilted
-      if (deviceMotion.rotationRate.gamma < 0 && player.body.x > 100) {
-        player.body.velocity.x = deviceMotion.rotationRate.gamma * 20;
-      } else if (deviceMotion.rotationRate.gamma > 0 && player.body.x < SpaceShooter.Game.world.width - 100) {
-        player.body.velocity.x = deviceMotion.rotationRate.gamma * 20;
-      }
-
+      player.tiltSpeed = deviceMotion.rotationRate.gamma * 20;
     });
 
   },
 
   update: function() {
 
-    // rotate the player towards the active pointer
-    this.state.player.body.rotation = SpaceShooter.Game.physics.arcade.angleToPointer(this.state.player);
+    // reset the player velocity
+    this.state.player.body.setZeroVelocity();
+
+    // rotate the player sprite and particles towards the active pointer
+    this.state.player.children[0].rotation = SpaceShooter.Game.physics.arcade.angleToPointer(this.state.player);
+    this.state.player.children[1].rotation = SpaceShooter.Game.physics.arcade.angleToPointer(this.state.player);
+
+    // set the tilt speed as the x velocity of the player
+    this.state.player.body.velocity.x = this.state.player.tiltSpeed;
 
     // fade out particles create by the player particle emitter
     this.state.playerEmitter.forEachAlive(function(p) {
