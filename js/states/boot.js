@@ -21,7 +21,7 @@ SpaceShooter.Boot.prototype = {
 
   create: function() {
     this.instance.stage.boot.create();
-    this.instance.music.create();
+    // this.instance.music.create();
   },
 
 };
